@@ -2,9 +2,9 @@
 
 namespace Code16\SharpOhdearBrokenLinks\Tests;
 
+use Code16\SharpOhdearBrokenLinks\SharpOhdearBrokenLinksServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Code16\SharpOhdearBrokenLinks\SharpOhdearBrokenLinksServiceProvider;
 
 class TestCase extends Orchestra
 {
