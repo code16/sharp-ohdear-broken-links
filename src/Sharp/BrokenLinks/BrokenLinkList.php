@@ -51,7 +51,11 @@ class BrokenLinkList extends SharpEntityList
                 return $brokenLink->statusCode;
             })
             ->setCustomTransformer('errored_url', function ($value, $brokenLink) {
-                return $brokenLink->crawledUrl;
+                return sprintf(
+                    '<a href="%s" target="_blank">%s</a>',
+                    $brokenLink->crawledUrl,
+                    $brokenLink->crawledUrl,
+                );
             })
             ->transform(
                 $ohDear->brokenLinks(
