@@ -11,4 +11,6 @@ class BrokenLinkEntity extends SharpEntity
     protected string $label = 'Liens cassés';
 
     protected ?string $list = BrokenLinkList::class;
+    protected array $prohibitedActions = ['create', 'view', 'update', 'delete'];
+
 }
