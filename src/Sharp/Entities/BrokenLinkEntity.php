@@ -2,7 +2,6 @@
 
 namespace Code16\SharpOhdearBrokenLinks\Sharp\Entities;
 
-
 use Code16\Sharp\Utils\Entities\SharpEntity;
 use Code16\SharpOhdearBrokenLinks\Sharp\BrokenLinks\BrokenLinkList;
 
