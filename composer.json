@@ -2,9 +2,10 @@
     "name": "code16/sharp-ohdear-broken-links",
     "description": "This is my package sharp-ohdear-broken-links",
     "keywords": [
-        "Code16",
         "laravel",
-        "sharp-ohdear-broken-links"
+        "sharp",
+        "ohdear",
+        "broken links"
     ],
     "homepage": "https://github.com/code16/sharp-ohdear-broken-links",
     "license": "MIT",
@@ -12,11 +13,10 @@
         {
             "name": "Arnaud Becher",
             "email": "arnaud.becher@gmail.com",
-            "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "code16/sharp": "^7.0",
         "illuminate/contracts": "^10.0",
         "ohdearapp/ohdear-php-sdk": "^3.6",
