@@ -1,24 +1,26 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "code16/sharp-ohdear-broken-links",
+    "description": "This is my package sharp-ohdear-broken-links",
     "keywords": [
-        ":vendor_name",
+        "Code16",
         "laravel",
-        ":package_slug"
+        "sharp-ohdear-broken-links"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/code16/sharp-ohdear-broken-links",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Arnaud Becher",
+            "email": "arnaud.becher@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
-        "spatie/laravel-package-tools": "^1.14.0",
-        "illuminate/contracts": "^10.0"
+        "code16/sharp": "^7.0",
+        "illuminate/contracts": "^10.0",
+        "ohdearapp/ohdear-php-sdk": "^3.6",
+        "spatie/laravel-package-tools": "^1.14.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -35,13 +37,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Code16\\SharpOhdearBrokenLinks\\": "src/",
+            "Code16\\SharpOhdearBrokenLinks\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "Code16\\SharpOhdearBrokenLinks\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -61,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Code16\\SharpOhdearBrokenLinks\\SharpOhdearBrokenLinksServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "SharpOhdearBrokenLinks": "Code16\\SharpOhdearBrokenLinks\\Facades\\SharpOhdearBrokenLinks"
             }
         }
     },
