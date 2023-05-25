@@ -21,6 +21,10 @@ class BrokenLinkList extends SharpEntityList
             ->addField(
                 EntityListField::make('errored_url')
                     ->setLabel('Url')
+            )
+            ->addField(
+                EntityListField::make('found_on_url')
+                    ->setLabel('Trouvé sur')
             );
     }
 
@@ -28,14 +32,16 @@ class BrokenLinkList extends SharpEntityList
     {
         $fieldsLayout
             ->addColumn('status_code', 2)
-            ->addColumn('errored_url', 10);
+            ->addColumn('errored_url', 5)
+            ->addColumn('found_on_url', 5);
     }
 
     public function buildListLayoutForSmallScreens(EntityListFieldsLayout $fieldsLayout): void
     {
         $fieldsLayout
             ->addColumn('status_code', 4)
-            ->addColumn('errored_url', 8);
+            ->addColumn('errored_url', 4)
+            ->addColumn('found_on_url', 4);
     }
 
     public function buildListConfig(): void
@@ -55,6 +61,13 @@ class BrokenLinkList extends SharpEntityList
                     '<a href="%s" target="_blank">%s</a>',
                     $brokenLink->crawledUrl,
                     $brokenLink->crawledUrl,
+                );
+            })
+            ->setCustomTransformer('found_on_url', function ($value, $brokenLink) {
+                return sprintf(
+                    '<a href="%s" target="_blank">%s</a>',
+                    $brokenLink->foundOnUrl,
+                    $brokenLink->foundOnUrl,
                 );
             })
             ->transform(
