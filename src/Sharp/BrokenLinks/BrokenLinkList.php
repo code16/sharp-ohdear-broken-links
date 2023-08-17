@@ -16,7 +16,7 @@ class BrokenLinkList extends SharpEntityList
         $fieldsContainer
             ->addField(
                 EntityListField::make('status_code')
-                    ->setLabel('Code d\'erreur')
+                    ->setLabel('Code d’erreur')
             )
             ->addField(
                 EntityListField::make('errored_url')
@@ -50,8 +50,6 @@ class BrokenLinkList extends SharpEntityList
 
     public function getListData(): array|Arrayable
     {
-        $ohDear = app(OhDear::class);
-
         return $this
             ->setCustomTransformer('status_code', function ($value, $brokenLink) {
                 return $brokenLink->statusCode;
@@ -71,9 +69,10 @@ class BrokenLinkList extends SharpEntityList
                 );
             })
             ->transform(
-                $ohDear->brokenLinks(
-                    config('schedule-monitor.oh_dear.site_id')
-                )
+                app(OhDear::class)
+                    ->brokenLinks(
+                        config('schedule-monitor.oh_dear.site_id')
+                    )
             );
     }
 }

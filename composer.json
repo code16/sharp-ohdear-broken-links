@@ -17,57 +17,27 @@
     ],
     "require": {
         "php": "^8.2",
-        "code16/sharp": "^7.0",
+        "code16/sharp": ">=7.0",
         "illuminate/contracts": "^10.0",
         "ohdearapp/ohdear-php-sdk": "^3.6",
         "spatie/laravel-package-tools": "^1.14.0"
     },
     "require-dev": {
-        "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^7.9",
-        "nunomaduro/larastan": "^2.0.1",
-        "orchestra/testbench": "^8.0",
-        "pestphp/pest": "^2.0",
-        "pestphp/pest-plugin-arch": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "spatie/laravel-ray": "^1.26"
+        "nunomaduro/collision": "^7.9"
     },
     "autoload": {
         "psr-4": {
-            "Code16\\SharpOhdearBrokenLinks\\": "src/",
-            "Code16\\SharpOhdearBrokenLinks\\Database\\Factories\\": "database/factories/"
+            "Code16\\SharpOhdearBrokenLinks\\": "src/"
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Code16\\SharpOhdearBrokenLinks\\Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
-        "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint"
     },
     "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
-        }
+        "sort-packages": true
     },
     "extra": {
         "laravel": {
             "providers": [
                 "Code16\\SharpOhdearBrokenLinks\\SharpOhdearBrokenLinksServiceProvider"
-            ],
-            "aliases": {
-                "SharpOhdearBrokenLinks": "Code16\\SharpOhdearBrokenLinks\\Facades\\SharpOhdearBrokenLinks"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
