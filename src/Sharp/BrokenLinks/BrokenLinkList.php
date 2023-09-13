@@ -11,37 +11,27 @@ use OhDear\PhpSdk\OhDear;
 
 class BrokenLinkList extends SharpEntityList
 {
-    public function buildListFields(EntityListFieldsContainer $fieldsContainer): void
+    protected function buildList(EntityListFieldsContainer $fields): void
     {
-        $fieldsContainer
+        $fields
             ->addField(
                 EntityListField::make('status_code')
                     ->setLabel('Code d’erreur')
+                    ->setWidth(2)
+                    ->setWidthOnSmallScreens(4),
             )
             ->addField(
                 EntityListField::make('errored_url')
                     ->setLabel('Url')
+                    ->setWidth(5)
+                    ->setWidthOnSmallScreens(4),
             )
             ->addField(
                 EntityListField::make('found_on_url')
                     ->setLabel('Trouvé sur')
+                    ->setWidth(5)
+                    ->setWidthOnSmallScreens(4),
             );
-    }
-
-    public function buildListLayout(EntityListFieldsLayout $fieldsLayout): void
-    {
-        $fieldsLayout
-            ->addColumn('status_code', 2)
-            ->addColumn('errored_url', 5)
-            ->addColumn('found_on_url', 5);
-    }
-
-    public function buildListLayoutForSmallScreens(EntityListFieldsLayout $fieldsLayout): void
-    {
-        $fieldsLayout
-            ->addColumn('status_code', 4)
-            ->addColumn('errored_url', 4)
-            ->addColumn('found_on_url', 4);
     }
 
     public function buildListConfig(): void

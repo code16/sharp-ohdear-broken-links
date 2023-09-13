@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "code16/sharp": "^7.0|^8.0",
+        "code16/sharp": "^8.0",
         "illuminate/contracts": "^10.0",
         "ohdearapp/ohdear-php-sdk": "^3.6",
         "spatie/laravel-package-tools": "^1.14.0"
