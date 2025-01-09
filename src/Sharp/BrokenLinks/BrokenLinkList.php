@@ -17,20 +17,17 @@ class BrokenLinkList extends SharpEntityList
             ->addField(
                 EntityListField::make('status_code')
                     ->setLabel('Code d’erreur')
-                    ->setWidth(2)
-                    ->setWidthOnSmallScreens(4),
+                    ->setWidth(2),
             )
             ->addField(
                 EntityListField::make('errored_url')
                     ->setLabel('Url')
-                    ->setWidth(5)
-                    ->setWidthOnSmallScreens(4),
+                    ->setWidth(5),
             )
             ->addField(
                 EntityListField::make('found_on_url')
                     ->setLabel('Trouvé sur')
-                    ->setWidth(5)
-                    ->setWidthOnSmallScreens(4),
+                    ->setWidth(5),
             );
     }
 
