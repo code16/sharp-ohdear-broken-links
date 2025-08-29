@@ -58,7 +58,7 @@ class BrokenLinkList extends SharpEntityList
             ->transform(
                 app(OhDear::class)
                     ->brokenLinks(
-                        config('schedule-monitor.oh_dear.site_id')
+                        config('schedule-monitor.oh_dear.monitor_id')
                     )
             );
     }
