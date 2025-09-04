@@ -10,6 +10,7 @@ class SharpOhdearBrokenLinksServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('sharp-ohdear-broken-links');
+            ->name('sharp-ohdear-broken-links')
+            ->hasConfigFile('broken-links');
     }
 }
