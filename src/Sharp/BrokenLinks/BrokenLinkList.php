@@ -6,8 +6,10 @@ use Code16\Sharp\EntityList\Fields\EntityListField;
 use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
 use Code16\Sharp\EntityList\Fields\EntityListFieldsLayout;
 use Code16\Sharp\EntityList\SharpEntityList;
+use Code16\Sharp\Exceptions\Form\SharpApplicativeException;
 use Illuminate\Contracts\Support\Arrayable;
 use OhDear\PhpSdk\OhDear;
+use Throwable;
 
 class BrokenLinkList extends SharpEntityList
 {
@@ -37,6 +39,15 @@ class BrokenLinkList extends SharpEntityList
 
     public function getListData(): array|Arrayable
     {
+        try {
+            $brokenLinks = app(OhDear::class, [
+                'apiToken' => config('broken-links.api_token')
+            ])->brokenLinks(config('broken-links.monitor_id'));
+        } catch(Throwable $e) {
+            report($e);
+            throw new SharpApplicativeException("An exception was thrown while fetching broken links from OhDear. See logs for more details.");
+        }
+
         return $this
             ->setCustomTransformer('status_code', function ($value, $brokenLink) {
                 return $brokenLink->statusCode;
@@ -55,11 +66,6 @@ class BrokenLinkList extends SharpEntityList
                     $brokenLink->foundOnUrl,
                 );
             })
-            ->transform(
-                app(OhDear::class, ['apiToken' => config('broken-links.api_token')])
-                    ->brokenLinks(
-                        config('broken-links.monitor_id')
-                    )
-            );
+            ->transform($brokenLinks);
     }
 }

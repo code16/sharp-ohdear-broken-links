@@ -1,3 +1,6 @@
+## Sharp OhDear Broken Links
+A Laravel package designed to be used with [Sharp](https://github.com/code16/sharp) to display [broken links from your OhDear monitoring](https://ohdear.app/features/broken-page-and-mixed-content-detection).
+
 ## Installation
 
 ```bash
@@ -5,25 +8,29 @@ composer require code16/sharp-ohdear-broken-links
 ```
 
 ## Usage
+This package is designed to add a broken links' list in your Sharp back-office.
+It uses the OhDear env keys to connect to OhDear API, you need at least `OH_DEAR_MONITOR_ID` and `OH_DEAR_API_TOKEN`.
 
-This package should only be added on a project that already have an OhDear monitoring setup. It will use the config value of `schedule-monitor.oh_dear.site_id`.
-
-Add in `config/sharp.php`:
-
-```php
-// config/sharp.php
-
-return [
-    // ...
-
-    'entities' => [
-        // ...
-        'brokenLinks' => Code16\SharpOhdearBrokenLinks\Sharp\Entities\BrokenLinkEntity::class,
-    ],
+Optionally, you can publish the package configuration with:
+```bash
+php artisan vendor:publish --tag=sharp-ohdear-broken-links-config
 ```
 
-and add in sharp menu file:
+In your [Sharp Configuration Service Provider](https://sharp.code16.fr/docs/guide/#configuration-via-a-new-service-provider), add the broken links' entity :
+```php
+class SharpConfigServiceProvider extends SharpAppServiceProvider
+{
+    protected function configureSharp(SharpConfigBuilder $config): void
+    {
+        $config
+            ->setName('Your beautiful project')
+            ->setSharpMenu(AppSharpMenu::class)
+            ->discoverEntities()
+            ->declareEntity(Code16\SharpOhdearBrokenLinks\Sharp\Entities\BrokenLinkEntity::class); // <-- declare the package entity here
+    }
+```
 
+Then add it to your sharp menu:
 ```php
 class AppSharpMenu extends SharpMenu
 {
@@ -31,7 +38,7 @@ class AppSharpMenu extends SharpMenu
     {
         // [...]
         return $this
-            ->addEntityLink('brokenLinks', 'Broken links', 'fa-chain-broken');
+            ->addEntityLink(Code16\SharpOhdearBrokenLinks\Sharp\Entities\BrokenLinkEntity::class, 'Broken links', 'fas-link-slash');
     }
 }
 ```
@@ -39,6 +46,7 @@ class AppSharpMenu extends SharpMenu
 ## Credits
 
 - [Arnaud Becher](https://github.com/smknstd)
+- [Lucien PUGET](https://github.com/patrickepatate)
 - [All Contributors](../../contributors)
 
 ## License
