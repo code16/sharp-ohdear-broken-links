@@ -66,6 +66,6 @@ class BrokenLinkList extends SharpEntityList
                     $brokenLink->foundOnUrl,
                 );
             })
-            ->transform($brokenLinks);
+            ->transform(collect($brokenLinks)->toArray());
     }
 }
