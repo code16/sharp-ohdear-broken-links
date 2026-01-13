@@ -13,25 +13,41 @@
         {
             "name": "Arnaud Becher",
             "email": "arnaud.becher@gmail.com"
+        },
+        {
+            "name": "Lucien PUGET",
+            "email": "lucien.puget@code16.fr"
         }
     ],
     "require": {
-        "php": "^8.2|^8.3|^8.4",
-        "code16/sharp": "^8.0|^9.0",
+        "php": "^8.3|^8.4|^8.5",
+        "code16/sharp": "^9.0",
         "illuminate/contracts": "^10.0|^11.0|^12.0",
         "ohdearapp/ohdear-php-sdk": "^4.0",
         "spatie/laravel-package-tools": "^1.14.0"
     },
     "require-dev": {
-        "nunomaduro/collision": "^7.9|^8.0"
+        "nunomaduro/collision": "^7.9|^8.0",
+        "orchestra/testbench": "^8.0|^9.0|^10.0",
+        "pestphp/pest": "^3.0|^4.0",
+        "pestphp/pest-plugin-arch": "^3.0|^4.0",
+        "pestphp/pest-plugin-laravel": "^3.0|^4.0"
     },
     "autoload": {
         "psr-4": {
             "Code16\\SharpOhdearBrokenLinks\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Code16\\SharpOhdearBrokenLinks\\Tests\\": "tests/"
+        }
+    },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {
@@ -40,6 +56,6 @@
             ]
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
