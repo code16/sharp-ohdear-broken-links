@@ -32,6 +32,13 @@ class BrokenLinksService
         return new static();
     }
 
+    public static function isConfigured(): bool
+    {
+        return
+            !empty(config('broken-links.api_token'))
+            && !empty(config('broken-links.monitor_id'));
+    }
+
     /**
      * @return iterable|BrokenLink[]
      * @throws MonitorIdIsNotDefinedException

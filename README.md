@@ -42,7 +42,7 @@ class AppSharpMenu extends SharpMenu
                 entityKeyOrClassName: Code16\SharpOhdearBrokenLinks\Sharp\Entities\BrokenLinkEntity::class, 
                 label: 'Broken links', 
                 icon: 'fas-link-slash',
-                badge: fn () => BrokenLinksService::make()->getBrokenLinksCount() // facultative, adds a count badge on the menu item
+                badge: fn () => BrokenLinksService::isConfigured() ? BrokenLinksService::make()->getBrokenLinksCount() : null, // facultative, adds a count badge on the menu item
             );
     }
 }
