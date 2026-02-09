@@ -41,8 +41,8 @@ class BrokenLinkList extends SharpEntityList
     {
         try {
             $brokenLinks = app(OhDear::class, [
-                'apiToken' => config('broken-links.api_token')
-            ])->brokenLinks(config('broken-links.monitor_id'));
+                'apiToken' => config()->string('broken-links.api_token', ''),
+            ])->brokenLinks((int) config('broken-links.monitor_id', 0));
         } catch(Throwable $e) {
             report($e);
             throw new SharpApplicativeException("An exception was thrown while fetching broken links from OhDear. See logs for more details.");
