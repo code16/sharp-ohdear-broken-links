@@ -4,6 +4,7 @@ use Code16\SharpOhdearBrokenLinks\Sharp\BrokenLinks\BrokenLinkList;
 use Code16\Sharp\Exceptions\Form\SharpApplicativeException;
 use OhDear\PhpSdk\Dto\BrokenLink;
 use OhDear\PhpSdk\OhDear;
+use Illuminate\Support\Facades\Cache;
 
 it('returns broken links transformed for Sharp', function () {
     $mock = Mockery::mock(OhDear::class);
@@ -31,9 +32,26 @@ it('returns broken links transformed for Sharp', function () {
         ->and($data[0])->toHaveKey('found_on_url', '<a href="https://example.com/page" target="_blank">https://example.com/page</a>');
 });
 
+it('clears the broken links count cache when fetching the list', function () {
+    config()->set('broken-links.monitor_id', 123);
+    config()->set('broken-links.api_token', 'fake-token');
+    config()->set('cache.default', 'array');
+    Cache::store('array')->put('broken-links.count', 10);
+
+    $mock = Mockery::mock(OhDear::class);
+    $mock->shouldReceive('brokenLinks')->andReturn([]);
+    app()->bind(OhDear::class, fn() => $mock);
+
+    $list = app(BrokenLinkList::class);
+    $list->getListData();
+
+    expect(Cache::store('array')->has('broken-links.count'))->toBeFalse();
+});
+
 it('throws a SharpApplicativeException if OhDear API fails', function () {
     $mock = Mockery::mock(OhDear::class);
-    $mock->shouldReceive('brokenLinks')
+    $mock
+        ->shouldReceive('brokenLinks')
         ->andThrow(new Exception('API error'));
 
     app()->bind(OhDear::class, function () use ($mock) {

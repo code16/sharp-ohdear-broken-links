@@ -2,4 +2,7 @@
 return [
     'api_token' => env('OH_DEAR_API_TOKEN'),
     'monitor_id' => env('OH_DEAR_MONITOR_ID', env('OH_DEAR_SITE_ID')),
+    'cache' => [
+        'count' => 60 * 15, //15 minutes
+    ],
 ];
