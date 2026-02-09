@@ -38,7 +38,12 @@ class AppSharpMenu extends SharpMenu
     {
         // [...]
         return $this
-            ->addEntityLink(Code16\SharpOhdearBrokenLinks\Sharp\Entities\BrokenLinkEntity::class, 'Broken links', 'fas-link-slash');
+           ->addEntityLink(
+                entityKeyOrClassName: Code16\SharpOhdearBrokenLinks\Sharp\Entities\BrokenLinkEntity::class, 
+                label: 'Broken links', 
+                icon: 'fas-link-slash',
+                badge: fn () => BrokenLinksService::make()->getBrokenLinksCount() // facultative, adds a count badge on the menu item
+            );
     }
 }
 ```
