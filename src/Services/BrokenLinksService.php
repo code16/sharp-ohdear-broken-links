@@ -8,17 +8,21 @@ use Code16\SharpOhdearBrokenLinks\Exceptions\UnableToGetOhDearDataException;
 use Exception;
 use OhDear\PhpSdk\Dto\BrokenLink;
 use OhDear\PhpSdk\OhDear;
+use Throwable;
 
 class BrokenLinksService
 {
-    protected OhDear $client;
+    protected ?OhDear $client = null;
 
     /**
+     * The client is resolved lazily so that make() never throws.
+     *
      * @throws UnableToGetOhDearDataException
      */
-    public function __construct(){
+    protected function client(): OhDear
+    {
         try {
-            $this->client = app(OhDear::class, [
+            return $this->client ??= app(OhDear::class, [
                 'apiToken' => config()->string('broken-links.api_token', ''),
             ]);
         } catch(Exception $exception) {
@@ -42,6 +46,7 @@ class BrokenLinksService
     /**
      * @return iterable|BrokenLink[]
      * @throws MonitorIdIsNotDefinedException
+     * @throws UnableToGetOhDearDataException
      */
     public function getBrokenLinks(): iterable
     {
@@ -49,15 +54,24 @@ class BrokenLinksService
             throw new MonitorIdIsNotDefinedException();
         }
 
-        return $this->client->brokenLinks((int) config('broken-links.monitor_id'));
+        return $this->client()->brokenLinks((int) config('broken-links.monitor_id'));
     }
 
-    public function getBrokenLinksCount(): int
+    /**
+     * Returns null if the count can't be fetched (exception is reported), so it can safely be used in a menu badge.
+     */
+    public function getBrokenLinksCount(): ?int
     {
-        return Cache::remember(
-            key: 'broken-links.count',
-            ttl: config('broken-links.cache.count'),
-            callback: fn() => collect($this->getBrokenLinks() ?? [])->count()
-        );
+        try {
+            return Cache::remember(
+                key: 'broken-links.count',
+                ttl: config('broken-links.cache.count'),
+                callback: fn() => collect($this->getBrokenLinks() ?? [])->count()
+            );
+        } catch(Throwable $exception) {
+            report($exception);
+
+            return null;
+        }
     }
 }

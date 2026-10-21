@@ -65,3 +65,27 @@ it('caches the broken links count', function () {
     // Second call, should NOT call the SDK (verified by ->once() in mock)
     expect($service->getBrokenLinksCount())->toBe(2);
 });
+
+it('returns null as count and reports the exception if OhDear throws', function () {
+    $exceptions = \Illuminate\Support\Facades\Exceptions::fake();
+
+    $mock = Mockery::mock(OhDear::class);
+    $mock->shouldReceive('brokenLinks')
+        ->with(123)
+        ->andThrow(new RuntimeException('OhDear is down'));
+
+    app()->bind(OhDear::class, fn() => $mock);
+
+    expect(BrokenLinksService::make()->getBrokenLinksCount())->toBeNull()
+        ->and(Cache::store('array')->has('broken-links.count'))->toBeFalse();
+
+    $exceptions->assertReported(RuntimeException::class);
+});
+
+it('does not throw on make() and returns null as count if the OhDear client cannot be resolved', function () {
+    \Illuminate\Support\Facades\Exceptions::fake();
+
+    app()->bind(OhDear::class, fn() => throw new RuntimeException('Unable to build client'));
+
+    expect(BrokenLinksService::make()->getBrokenLinksCount())->toBeNull();
+});
